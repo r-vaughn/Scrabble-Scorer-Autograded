@@ -93,10 +93,10 @@ function transform(object) {
    let newScrabblePoints = {};
    for (pointValue in object) {
       for (let i = 0; i < object[pointValue].length; i++) {
+      // for (i in object[pointValue]) {
+         // console.log(`${object[pointValue][i].toLowerCase()}: ${pointValue}`);
          newScrabblePoints[object[pointValue][i].toLowerCase()] = Number(pointValue);
       }
-   console.log(pointValue); 
-   console.log(object[pointValue]);
    }
    return newScrabblePoints;
 }
@@ -104,12 +104,12 @@ function transform(object) {
 let newPointStructure = transform(oldPointStructure);
 
 function runProgram() {
-   //let word = initialPrompt();
+   let word = initialPrompt();
    //console.log(simpleScorer(word));
    //console.log(vowelBonusScorer(word));
    //console.log(scrabbleScorer(word));
-   //console.log(scorerPrompt(word));
-   console.log(transform(oldPointStructure));
+   console.log(scorerPrompt(word));
+   //console.log(transform(oldPointStructure));
 }
 
 // Don't write any code below this line //
