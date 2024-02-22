@@ -58,12 +58,12 @@ let vowelBonusScorer = function(word) {
 };
 
 let scrabbleScorer = function(word) {
-   word = word.toUpperCase(); 
+   word = word.toLowerCase(); 
    let wordScore = 0;
    for (let i = 0; i < word.length; i++) {
-      for (const pointValue in oldPointStructure) {
-        if (oldPointStructure[pointValue].includes(word[i]))
-        wordScore += Number(pointValue);  
+      for (const letter in newPointStructure) {
+        if (letter === word[i])
+        wordScore += newPointStructure[letter];  
       }
    }
    return wordScore;
@@ -79,13 +79,17 @@ function scorerPrompt(word) {
    console.log(`Which scoring algorithm would you like to use? \n 0 - ${scoringAlgorithms[0].name}: ${scoringAlgorithms[0].description} \n 1 - ${scoringAlgorithms[1].name}: ${scoringAlgorithms[1].description} \n 2 - ${scoringAlgorithms[2].name}: ${scoringAlgorithms[2].description}`);
    let points = 0;
    let scoringChoice = input.question("Enter 0, 1, or 2: ");
-      if (scoringChoice === "0") {
-         points = scoringAlgorithms[0].scorerFunction(word)
-      }  if (scoringChoice === "1") {
-            points = scoringAlgorithms[1].scorerFunction(word)
-         }  if (scoringChoice === "2") {
-               points = scoringAlgorithms[2].scorerFunction(word)
-            }
+
+   if (scoringChoice === "0") {
+      points = scoringAlgorithms[0].scorerFunction(word)
+   }
+   if (scoringChoice === "1") {
+      points = scoringAlgorithms[1].scorerFunction(word)
+   }
+   if (scoringChoice === "2") {
+      points = scoringAlgorithms[2].scorerFunction(word)
+   }
+
    return `Score for ${word}: ${points}`;
 }
 
@@ -93,8 +97,6 @@ function transform(object) {
    let newScrabblePoints = {};
    for (pointValue in object) {
       for (let i = 0; i < object[pointValue].length; i++) {
-      // for (i in object[pointValue]) {
-         // console.log(`${object[pointValue][i].toLowerCase()}: ${pointValue}`);
          newScrabblePoints[object[pointValue][i].toLowerCase()] = Number(pointValue);
       }
    }
